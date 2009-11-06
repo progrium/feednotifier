@@ -47,7 +47,7 @@ class MainHandler(webapp.RequestHandler):
         
         feed_url = self.request.get('url')
         try:
-            feed_string = urlfetch.fetch(feed_url).content.encode('ascii', 'xmlcharrefreplace')
+            feed_string = unicode(urlfetch.fetch(feed_url).content.strip(), "utf-8").encode('ascii', 'xmlcharrefreplace')
         except urlfetch.InvalidURLError:
             self.response.out.write("Not a valid URL")
             return
@@ -97,7 +97,7 @@ class NotifyHandler(webapp.RequestHandler):
     def post(self):
         feed_id = self.request.path.split('/')[-1]
         feed = Feed.get_by_id(int(feed_id))
-        feed_dom = minidom.parseString(self.request.body.encode('ascii', 'xmlcharrefreplace'))
+        feed_dom = minidom.parseString(self.request.body.encode('utf-8', 'xmlcharrefreplace'))
         for entry in feed_dom.getElementsByTagName('entry'):
             entry_title = entry.getElementsByTagName('title')[0].firstChild
             entry_title = entry_title.data if entry_title else "???"
