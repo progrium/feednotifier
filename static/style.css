@@ -1,0 +1,4 @@
+body { font-family: Georgia; }
+h1 { font-size: 50px; letter-spacing: 6}
+#wrapper { width: 525px; margin-left: auto; margin-right: auto; }
+#login-button { font-size: 20px; margin-left: 150px; }

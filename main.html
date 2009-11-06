@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>Feed Notifier :: Get real-time notifications of feed updates</title>
+    <link href="/static/style.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="wrapper">
+    <h1><img src="/favicon.ico" width="60" height="60" style="margin-bottom: -12px;" /> Feed Notifier</h1>
+    {% if user %}
+    
+    <div style="float: right; margin-top: -30px;">{{ user.nickname }} | <a href="{{ logout_url }}">Logout</a></div>
+    
+    <p>
+      <form action="/" method="post">
+        <small style="color: #222;">Feed URL:</small><br />
+        <input type="text" name="url" style="font-size: 24px; width: 100%;"/> 
+        <input type="submit" value="Subscribe to Feed" style="float: right; margin-top: 4px;"/>
+        </form>
+    </p>
+    {% if feeds %}
+    <p>
+      <ul>
+        {% for feed in feeds %}
+        <li>{{ feed.title }}
+          <form style="display:inline;" action="/" method="post">
+            <input type="hidden" name="id" value="{{ feed.key.id }}" />
+            <input type="submit" value="Delete" /></form></li>
+        {% endfor %}
+      </ul>
+    </p>
+    {% endif %}
+    
+    {% else %}
+    <p>Feed Notifier uses your <a href="http://notify.io">notify.io</a> account to send you real-time notifications of feed updates. All you have to do is login with Google and enter a PubSubHubbub-enabled feed URL. Then awesome happens.</p>
+    <p><a id="login-button" href="{{ login_url }}">Login with Google</a></p>
+    
+    
+    {% endif %}
+    </div>
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+    var pageTracker = _gat._getTracker("UA-6824126-9");
+    pageTracker._trackPageview();
+    } catch(err) {}</script>
+  </body>
+</html>
